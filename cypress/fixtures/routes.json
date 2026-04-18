@@ -1,0 +1,32 @@
+{
+  "excluded": [
+    "/transliteration",
+    "/chat-translator"
+  ],
+  "informational": [
+    "/about",
+    "/contact",
+    "/privacy",
+    "/terms",
+    "/disclaimer"
+  ],
+  "documentConverter": [
+    "/image-to-pdf",
+    "/pdf-to-word",
+    "/word-to-pdf"
+  ],
+  "imageTools": [
+    "/resize-image",
+    "/crop-image",
+    "/compress-image",
+    "/convert-image"
+  ],
+  "editorAndMoreTools": [
+    "/pdf-editor",
+    "/image-to-text",
+    "/rotate-image",
+    "/flip-image",
+    "/meme-generator",
+    "/color-picker"
+  ]
+}

@@ -3,10 +3,14 @@
   "version": "1.0.0",
   "description": "Cypress automation test framework with TypeScript and POM",
   "scripts": {
+    "test": "npm run cypress:assignment",
     "cypress:open": "cypress open",
     "cypress:run": "cypress run",
     "cypress:run:chrome": "cypress run --browser chrome",
     "cypress:smoke": "cypress run --spec \"cypress/e2e/smoke/**/*.cy.ts\"",
+    "cypress:functional": "cypress run --spec \"cypress/e2e/functional/**/*.cy.ts\"",
+    "cypress:negative": "cypress run --spec \"cypress/e2e/negative/**/*.cy.ts\"",
+    "cypress:assignment": "npm run cypress:smoke && npm run cypress:functional && npm run cypress:negative",
     "cypress:verify": "cypress verify"
   },
   "repository": {

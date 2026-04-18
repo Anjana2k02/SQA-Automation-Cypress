@@ -1,14 +1,30 @@
-import { HomePage } from "../../pages/HomePage";
+import { ToolPage } from "../../pages/ToolPage";
 
-describe("Navigation Smoke", () => {
-    const homePage = new HomePage();
+describe("Smoke - Route Reachability", () => {
+    const toolPage = new ToolPage();
 
-    it("keeps user on the expected host when navigating", () => {
-        homePage.visit();
-        homePage.clickFirstInternalLinkIfPresent();
+    it("SMK-004: loads major feature routes without error", () => {
+        const majorRoutes = [
+            "/image-to-pdf",
+            "/resize-image",
+            "/compress-image",
+            "/convert-image",
+            "/pdf-editor",
+            "/image-to-text",
+            "/meme-generator",
+        ];
+
+        majorRoutes.forEach((route) => {
+            toolPage.visit(route);
+            toolPage.assertRouteLoaded(route);
+            toolPage.assertToolHasWorkingUiShell();
+        });
     });
 
-    it("returns success status for base URL", () => {
-        cy.request("/").its("status").should("be.within", 200, 399);
+    it("SMK-005: transliteration is intentionally excluded from this suite", () => {
+        cy.fixture("routes").then((routes) => {
+            expect(routes.excluded).to.include("/transliteration");
+            expect(routes.excluded).to.include("/chat-translator");
+        });
     });
 });

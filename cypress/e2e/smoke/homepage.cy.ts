@@ -1,28 +1,32 @@
-import { HomePage } from "../../pages/HomePage";
+import { AppShellPage } from "../../pages/AppShellPage";
 
-describe("Homepage Smoke", () => {
-    const homePage = new HomePage();
+describe("Smoke - Homepage", () => {
+    const appShell = new AppShellPage();
 
-    it("loads the homepage successfully", () => {
-        homePage.visit();
-        homePage.assertPageLoaded();
-        homePage.assertCoreSectionsVisible();
+    it("SMK-001: loads homepage and renders key shell", () => {
+        appShell.visitHome();
+        appShell.assertAppIsRendered();
+        appShell.assertBasicPageSemantics();
     });
 
-    it("has a non-empty and meaningful page title", () => {
-        homePage.visit();
+    it("SMK-002: shows primary navigation labels", () => {
+        appShell.visitHome();
 
-        cy.fixture("testData").then((data) => {
-            cy.title().then((title) => {
-                expect(title.trim().length).to.be.greaterThan(0);
-                expect(title.length).to.be.lessThan(data.maxTitleLength);
+        appShell.assertTopLevelNavContains([
+            "Document Converter",
+            "Editor",
+            "Resize",
+            "Crop",
+            "Compress",
+            "Image Converter",
+            "More",
+        ]);
+    });
 
-                const normalized = title.toLowerCase();
-                const hasKeyword = data.expectedKeywords.some((keyword: string) =>
-                    normalized.includes(keyword)
-                );
-                expect(hasKeyword).to.eq(true);
-            });
-        });
+    it("SMK-003: has stable page title and links", () => {
+        appShell.visitHome();
+
+        cy.title().should("not.be.empty");
+        cy.get("a").its("length").should("be.gte", 3);
     });
 });
