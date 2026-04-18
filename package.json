@@ -1,0 +1,28 @@
+{
+  "name": "sqa-automation-cypress",
+  "version": "1.0.0",
+  "description": "Cypress automation test framework with TypeScript and POM",
+  "scripts": {
+    "cypress:open": "cypress open",
+    "cypress:run": "cypress run",
+    "cypress:run:chrome": "cypress run --browser chrome",
+    "cypress:smoke": "cypress run --spec \"cypress/e2e/smoke/**/*.cy.ts\"",
+    "cypress:verify": "cypress verify"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Anjana2k02/SQA-Automation-Cypress.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Anjana2k02/SQA-Automation-Cypress/issues"
+  },
+  "homepage": "https://github.com/Anjana2k02/SQA-Automation-Cypress#readme",
+  "devDependencies": {
+    "@types/node": "^25.6.0",
+    "cypress": "^15.14.0",
+    "typescript": "^6.0.3"
+  }
+}
