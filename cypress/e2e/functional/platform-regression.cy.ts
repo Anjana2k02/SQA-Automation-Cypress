@@ -1,3 +1,10 @@
+import {
+    appearsAcceptedForProcessing,
+    hasFileSizeRejection,
+    MAX_IMAGE_UPLOAD_BYTES,
+    selectImageFile,
+} from "../../support/fileUploadAssertions";
+
 type Summary = {
     total: number;
     passed: number;
@@ -162,25 +169,22 @@ describe("Non Transliteration Coverage", () => {
 
             cy.readFile("cypress/images/MAX.jpg", null).then((fileBuffer) => {
                 const fileSizeBytes = (fileBuffer as Uint8Array).byteLength;
-                const maxAllowedBytes = 20 * 1024 * 1024;
 
-                expect(fileSizeBytes).to.be.greaterThan(maxAllowedBytes);
-
-                cy.get('input[type="file"]').first().selectFile(
-                    {
-                        contents: fileBuffer,
-                        fileName: "MAX.jpg",
-                        mimeType: "image/jpeg",
-                        lastModified: Date.now(),
-                    },
-                    { force: true }
-                );
+                expect(fileSizeBytes).to.be.greaterThan(MAX_IMAGE_UPLOAD_BYTES);
             });
 
+            selectImageFile("cypress/images/MAX.jpg", "MAX.jpg");
             cy.wait(1200);
 
             // This will fail when the known size-validation bug is present.
-            cy.contains(/file is too large|max\s*20mb|maximum file size|exceed/i).should("be.visible");
+            cy.get("body").then(($body) => {
+                expect(
+                    appearsAcceptedForProcessing($body),
+                    "MAX.jpg must not show preview, resize controls, or download actions."
+                ).to.eq(false);
+
+                expect(hasFileSizeRejection($body), "MAX.jpg must show file-size validation feedback.").to.eq(true);
+            });
         });
     });
 });
