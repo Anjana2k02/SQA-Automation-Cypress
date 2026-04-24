@@ -32,4 +32,18 @@ describe("Functional - Image Tools", () => {
             toolPage.assertToolHasWorkingUiShell();
         });
     });
+
+    it("FUN-013: Compress Image page shows upload and preview default state", () => {
+        toolPage.visit("/compress-image");
+        toolPage.assertRouteLoaded("/compress-image");
+
+        cy.contains(/compress image/i).should("be.visible");
+        cy.contains(/drag and drop your file here/i).should("be.visible");
+        cy.contains(/select files/i).should("be.visible");
+        cy.contains(/supported:\s*png,\s*jpg,\s*webp/i).should("be.visible");
+        cy.contains(/max\s*20mb/i).should("be.visible");
+        cy.contains(/^compress$/i).should("be.visible");
+        cy.contains(/preview/i).should("be.visible");
+        cy.contains(/no image yet/i).should("be.visible");
+    });
 });

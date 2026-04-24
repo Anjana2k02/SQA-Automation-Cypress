@@ -20,4 +20,16 @@ describe("Functional - Editor and More Tools", () => {
             toolPage.assertToolHasWorkingUiShell();
         });
     });
+
+    it("FUN-012: PDF Editor shows toolbar, file chooser and page controls", () => {
+        toolPage.visit("/pdf-editor");
+        toolPage.assertRouteLoaded("/pdf-editor");
+
+        cy.contains(/pdf editor/i).should("be.visible");
+        cy.contains(/toolbar/i).should("be.visible");
+        cy.get('input[type="file"]').should("exist");
+        cy.contains(/download/i).should("be.visible");
+        cy.contains(/prev/i).should("be.visible");
+        cy.contains(/next/i).should("be.visible");
+    });
 });
